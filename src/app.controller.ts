@@ -17,8 +17,6 @@ export class AppController {
     @Payload('payload') payload: any,
     @Ctx() context: RmqContext,
   ): Promise<void> {
-    const response = this.appService.getHello();
-
     console.log('Received create event');
 
     const channel = context.getChannelRef();
@@ -40,8 +38,7 @@ export class AppController {
   }
 
   private async toDb({ movieName }: { movieName: string }) {
-    const uri =
-      'mongodb://mongo:1Lzu9ZZeyRWGBdQeXMoC@containers-us-west-175.railway.app:7554';
+    const uri = process.env.MONGO_URL as string;
     const client = new MongoClient(uri);
 
     try {

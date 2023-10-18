@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
@@ -9,8 +10,8 @@ async function bootstrap() {
       transport: Transport.RMQ,
       options: {
         urls: [
-          'amqp://localhost:5672',
-          // 'amqps://test-rabbit:testrabbit1234@b-3f2d0783-43d1-475e-a474-b2e8166b77d9.mq.us-east-1.amazonaws.com:5671',
+          // 'amqp://localhost:5672',
+          process.env.RABBITMQ_URL as string,
         ],
         queue: 'Movies',
         // false = manual acknowledgement; true = automatic acknowledgment
